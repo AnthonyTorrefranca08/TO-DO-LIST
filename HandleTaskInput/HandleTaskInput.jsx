@@ -5,7 +5,7 @@ import addBtn from '../TodoListImg/addBtn.png'
 const HandleTaskInput = () => {
     const [input, setInput] = useState({
         userInput: '',
-        tasks: [],
+        taskCreated: [],
         isActive: false,
     });
 
@@ -19,6 +19,8 @@ const HandleTaskInput = () => {
     
     const testing = (e) => {
         e.preventDefault();
+        if (input.userInput.trim() === "")
+            return;
         console.log(input.userInput);
     }
 
@@ -29,7 +31,8 @@ return (
         <section id="createTaskContainer">
             <input type="checkbox" className={transition} />
 
-            <input type="text" placeholder='Create New Task'
+
+            <input type="text" placeholder='Create New Task' 
                 className={transition}
                 value={input.userInput}
                 onChange={(e) =>
