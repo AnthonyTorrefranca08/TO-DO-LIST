@@ -1,15 +1,17 @@
-import React from 'react'
 import './TodoList.css'
-import CreateNewTask from '../CreateNewTask/CreateNewTask.jsx'
+import HandTaskInput from '../HandleTaskInput/HandleTaskInput'
 
-const toDoList = () => {
+const ToDoList = () => {
 return (
     <section id='sectionContainer'>
         <section id="heading">
             <h1>Add New Task</h1>
         </section>
-        <CreateNewTask />
+            <HandTaskInput />
+        <section id="newTask">
+
+        </section>
     </section>
 )}
 
-export default toDoList
+export default ToDoList

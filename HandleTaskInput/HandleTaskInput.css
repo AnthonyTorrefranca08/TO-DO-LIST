@@ -1,0 +1,63 @@
+#createNew{
+    display: flex;
+    justify-content: center;
+}
+#createTaskContainer{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+#createTask #createTaskContainer input[type="checkbox"]{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    accent-color: white;
+}
+#createTask #createTaskContainer input,
+#createTask #createTaskContainer input[type="checkbox"]{
+    display: inline;
+    transform: translate(500px);
+    color: white;
+    font-size: 20px;
+    padding: 0 20px;
+    background-color: transparent;
+    height: 50px;
+    border: none;
+    transition: 0.5s ease-in-out;
+}
+#createTask #createTaskContainer input.active,
+#createTask #createTaskContainer input[type="checkbox"].active{
+    cursor: pointer;
+    transform: translate(50px);
+}
+#createTask input:focus{
+    outline: none;
+}
+#addTask{
+    display: flex;
+    transform: translate(-10rem);
+    transition: 0.5s ease-in-out;
+}
+#addTask.active{
+    transform: translate(0);
+}
+#createTask img{
+    filter: brightness(0);
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    transition: 0.5s ease-in-out;
+    position: absolute;
+}
+#addTask p{
+    transition: 0.5s ease-in-out;
+    transform: translate(50px);
+}
+#createTask img.active{
+    filter: brightness(1) opacity(0.3);
+    transform: rotate(45deg);
+}
+#addTask p.active{
+    position: relative;
+    transform: translate(200px);
+}
