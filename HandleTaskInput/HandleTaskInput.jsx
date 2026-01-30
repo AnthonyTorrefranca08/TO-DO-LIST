@@ -2,89 +2,98 @@ import React, { useState } from 'react'
 import './HandleTaskInput.css'
 import addBtn from '../TodoListImg/addBtn.png'
 
-const HandleTaskInput = () => {
+
+export default function HandleTaskInput() {
     const [input, setInput] = useState({
         userInput: '',
-        task: '',
-        isActive: false,
         isCheck: false,
+        isActiveTernary: false,
     });
 
     const showHide = (e) => {
         e.preventDefault();
-        const addBtnVal = !input.isActive;
+        const addBtnVal = !isActiveTernary;
+    // toggles the ternary
         setInput(prev => ({
             ...prev,
-            isActive: !prev.isActive,
+            isActiveTernary: !isActiveTernary,
         }));
-
+    // makes the input value to ''
         if(!addBtnVal){
             setInput(prev =>({
                 ...prev, 
-                userInput: ""
+                userInput: '',
             }))
         }
-
-        if(input.isCheck === true && !addBtnVal){
+    // ticks the checkbox
+        if(isTogggle && !addBtnVal){
             setInput(prev =>({
                 ...prev,
-                isCheck: !prev.isCheck
+                isCheck: false,
             }))
         }
-
-            console.log("Current addBtn value", addBtnVal, input.userInput);
+        console.log("Current addBtn value", addBtnVal);
     }
-    
+
     const handleInput = (e) => {
         e.preventDefault();
-        if (input.userInput.trim() === "")
+    // won't log the userInput when ''
+        if (inputBlank)
             return;
-        console.log(input.userInput);
+        console.log(userInput);
     }
 
     const handleChecked = () =>{
         const isChecked = !input.isCheck;
-        setInput(prev => ({
-            ...prev,
-            isCheck: isChecked,
-        }))
-        console.log("Current checkbox value", isChecked, input.userInput);
+    // won't tick the checkbox when userInput ''
+        if (inputBlank)
+            return;
+    // toggles everything back to baseline
+        if (isChecked){
+            setInput(prev => ({
+                ...prev,
+                userInput: '',
+                isCheck: false,
+                isActiveTernary: false,
+            }))
+        }
+            console.log(userInput, isChecked);
     }
+    // variable extractions
+        const isActiveTernary = input.isActiveTernary ? "active" : "";
+        const isTogggle = input.isCheck;
+        const userInput = input.userInput;
+        const inputBlank = userInput.trim() === "";
 
-    const transition = input.isActive ? "active" : "";
+    return (
+        <form id='createTask' name='createTask' onSubmit={handleInput}>
+            <section id="createTaskContainer">
+                <input type="checkbox" className={isActiveTernary} 
+                checked={isTogggle} 
+                onChange={handleChecked} 
+                disabled={inputBlank}/>
 
-return (
-    <form id='createTask' name='createTask' onSubmit={handleInput}>
-        <section id="createTaskContainer">
-            <input type="checkbox" className={transition} 
-            checked={input.isCheck} onChange={handleChecked} 
-            disabled={input.userInput.trim() === ""}/>
+                <input type="text" placeholder='Create New Task' 
+                    className={isActiveTernary}
+                    value={userInput}
+                    onChange={(e) =>setInput({
+                        ...input,
+                        userInput: e.target.value
+                })}/>
 
-            <input type="text" placeholder='Create New Task' 
-                className={transition}
-                value={input.userInput}
-                onChange={(e) =>setInput({
-                    ...input,
-                    userInput: e.target.value
-            })}/>
+                <section id="addSection" className={isActiveTernary}>
+                    <img src={addBtn} id='addBtn' alt="List a new task to do" 
+                        className={isActiveTernary}
+                        onClick={showHide}
+                    />
+                    <p className={isActiveTernary}>Click to add task</p>
+                </section>
 
-            <section id="addSection" className={transition}>
-                <img src={addBtn} id='addBtn' alt="Add Todo" 
-                    className={transition}
-                    onClick={showHide}
-            />
-                <p className={transition}>Click to add task</p>
+                <ol>
+                    
+                </ol>
+
             </section>
-            <ol>
-                {setInput.task.map((task, index) =>
-                    <li key={index}>
-                        <span className='text'>{task}</span>
-                    </li>
-                )}
-            </ol>
-        </section>
-    </form>
-)
+        </form>
+    )
 }
-
-export default HandleTaskInput
