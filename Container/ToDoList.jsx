@@ -8,9 +8,9 @@ return (
             <h1>Add New Task</h1>
         </section>
             <HandTaskInput />
-        <section id="newTask">
+        {/* <section id="newTask">
 
-        </section>
+        </section> */}
     </section>
 )}
 

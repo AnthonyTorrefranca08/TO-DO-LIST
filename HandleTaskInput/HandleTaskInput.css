@@ -7,15 +7,12 @@
     align-items: center;
     flex-direction: row;
 }
-#createTask #createTaskContainer input[type="checkbox"]{
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    accent-color: white;
-    transition: 0.5s ease-in-out;
+#createTask #createTaskContainer button.active{
+    border-radius: 20px;
+    border: 1px solid hsla(120, 100%, 50%, 0.66);
 }
 #createTask #createTaskContainer input,
-#createTask #createTaskContainer input[type="checkbox"]{
+#createTask #createTaskContainer button{
     display: inline;
     transform: translate(500px);
     color: white;
@@ -27,7 +24,7 @@
     transition: 0.5s ease-in-out;
 }
 #createTask #createTaskContainer input.active,
-#createTask #createTaskContainer input[type="checkbox"].active{
+#createTask #createTaskContainer button.active{
     cursor: pointer;
     transform: translate(100px);
 }

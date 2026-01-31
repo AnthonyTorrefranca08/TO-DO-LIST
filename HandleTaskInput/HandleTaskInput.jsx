@@ -6,13 +6,12 @@ import addBtn from '../TodoListImg/addBtn.png'
 export default function HandleTaskInput() {
     const [input, setInput] = useState({
         userInput: '',
-        isCheck: false,
         isActiveTernary: false,
     });
 
     const showHide = (e) => {
         e.preventDefault();
-        const addBtnVal = !isActiveTernary;
+    const addBtnVal = !isActiveTernary;
     // toggles the ternary
         setInput(prev => ({
             ...prev,
@@ -25,53 +24,66 @@ export default function HandleTaskInput() {
                 userInput: '',
             }))
         }
-    // ticks the checkbox
-        if(isTogggle && !addBtnVal){
-            setInput(prev =>({
-                ...prev,
-                isCheck: false,
-            }))
-        }
         console.log("Current addBtn value", addBtnVal);
     }
 
     const handleInput = (e) => {
         e.preventDefault();
-    // won't log the userInput when ''
+    // won't submit the checkbox when userInput ''
+        if (inputBlank)
+            return;
+        if (inputBlank){
+            setInput(prev => ({
+                ...prev,
+                isActiveTernary: prev.isActiveTernary,
+            }));
+            console.log(userInput);
+        }
+    // won't log the userInput when input = ''
         if (inputBlank)
             return;
         console.log(userInput);
-    }
+        }
 
-    const handleChecked = () =>{
-        const isChecked = !input.isCheck;
-    // won't tick the checkbox when userInput ''
+    const handleAddTask = () =>{
+    // won't submit the checkbox when userInput ''
         if (inputBlank)
             return;
+        if(!addBtnVal){
+            setInput(prev =>({
+                ...prev, 
+                userInput: '',
+                isActiveTernary: false,
+            }))
+            console.log(addBtnVal)
+        }
     // toggles everything back to baseline
-        if (isChecked){
+        if (handleAddTask){
             setInput(prev => ({
                 ...prev,
                 userInput: '',
-                isCheck: false,
                 isActiveTernary: false,
             }))
         }
-            console.log(userInput, isChecked);
+        if (!handleAddTask){
+            setInput(prev=>({
+                ...prev,
+                userInput: ''
+            }))
+        }
+            console.log(addBtnVal);
     }
     // variable extractions
-        const isActiveTernary = input.isActiveTernary ? "active" : "";
-        const isTogggle = input.isCheck;
+        const isActiveTernary = input.isActiveTernary ? "active" : '';
         const userInput = input.userInput;
         const inputBlank = userInput.trim() === "";
+        const addBtnVal = !isActiveTernary;
 
     return (
         <form id='createTask' name='createTask' onSubmit={handleInput}>
             <section id="createTaskContainer">
-                <input type="checkbox" className={isActiveTernary} 
-                checked={isTogggle} 
-                onChange={handleChecked} 
-                disabled={inputBlank}/>
+                <button className={isActiveTernary}
+                onChange={handleAddTask}>ADD</button>
 
                 <input type="text" placeholder='Create New Task' 
                     className={isActiveTernary}
